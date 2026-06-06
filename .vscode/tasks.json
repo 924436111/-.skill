@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "整理项目文件",
+			"type": "shell",
+			"command": "Move-Item *.md PRD\\; Move-Item *.png 设计导出\\"
+		},
+		{
+			"label": "整理项目文件",
+			"type": "shell",
+			"command": "Move-Item -Force *.md PRD\\; Move-Item -Force *.png 设计导出\\"
+		},
+		{
+			"label": "整理文件",
+			"type": "shell",
+			"command": "Remove-Item 'PRD\\睡眠音响PRD初稿.md' -Force; Move-Item *.md PRD\\ -Force; Move-Item *.png 设计导出\\ -Force"
+		},
+		{
+			"label": "恢复工作流文件",
+			"type": "shell",
+			"command": "Move-Item 'PRD\\工作流约定.md' . -Force"
+		}
+	]
+}
