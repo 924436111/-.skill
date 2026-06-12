@@ -1,4 +1,4 @@
-# .pen 全量校验 SOP
+﻿# .pen 全量校验 SOP
 
 > 核心原则：**用脚本数字做判断，不用 AI 感觉做判断**
 
@@ -6,46 +6,45 @@
 
 ### 第一步：全量拉取
 
-用 `mcp_pencil_batch_get` 一次拉取全部 51 个页面（readDepth:5），保存到 `assets/full-dump.json`。
+用 `mcp_pencil_batch_get(readDepth:5)` 一次拉取全部页面。
 
 **禁止**分页拉取——分页会导致遗漏。
 
 ### 第二步：脚本扫描
 
 ```bash
-node assets/check-colors.mjs assets/full-dump.json
+node assets/scan.cjs PRD/pencil-new.pen
 ```
 
-输出：
-- 硬编码色值数量（按页面分组）
-- 字体不统一数量
-- 自动生成 `assets/fix-batch-*.txt` 修复脚本
+输出：硬编码色值数量（按页面分组）、字体不统一数量。
 
 **退出码**：0 = 通过，1 = 有遗漏
 
 ### 第三步：批量修复
 
-读取 `assets/fix-batch-*.txt`，逐个文件调用 `mcp_pencil_batch_design` 执行。
+**方案 A（推荐）：直接修改 .pen JSON**
 
-每个 batch 最多 30 条 Update，防止 MCP 超时。
+```bash
+node assets/fix5.cjs
+```
+
+⚠️ **关键检查点**：
+1. 替换前确认目标变量已存在于 .pen 文件的 `variables` 字段
+2. 只替换有对应变量的色值
+3. 无变量的先往 .pen JSON 的 `variables` 中添加，再替换
+4. `mcp_pencil_set_variables` 可能不写入——用脚本直接改 JSON 更可靠
 
 ### 第四步：重新扫描验证
 
-重复第一步和第二步，确认退出码为 0。
-
-**禁止**跳过这步——必须用脚本确认，不能用 AI "感觉没问题了"。
+重复第二步，确认退出码为 0。**禁止跳过。**
 
 ### 第五步：布局检查
 
-```bash
-mcp_pencil_snapshot_layout(problemsOnly: true)
-```
-
-修复所有 reported 问题后，再次检查直到零问题。
+`mcp_pencil_snapshot_layout(problemsOnly: true)` 直到零问题。
 
 ### 第六步：截图抽检
 
-从 51 页中随机抽 5 页截图，人工确认视觉无异常。
+随机抽 3-5 页截图确认视觉无异常。
 
 ---
 
@@ -56,14 +55,26 @@ mcp_pencil_snapshot_layout(problemsOnly: true)
 | AI 自行判断"差不多了" | 脚本退出码为 0 才算完成 |
 | 分页拉取分页修 | 一次全量拉取，脚本统一扫描 |
 | 修完不验证 | 每轮修复后重新跑脚本 |
-| 只检查 fill | fill + stroke + fontFamily 全部检查 |
 | 用缓存 JSON 扫描 | 每次从 .pen 实时拉取 |
+| 替换时不检查变量存在 | 先验证变量已定义，再替换 |
+| 信任 MCP set_variables | 直接改 .pen JSON 更可靠 |
 
-## 当前状态
+## 关键教训
 
-- [ ] 第一步：全量拉取
-- [ ] 第二步：脚本扫描（退出码 = ?）
-- [ ] 第三步：批量修复
-- [ ] 第四步：重新扫描（退出码 = 0）
-- [ ] 第五步：布局检查
-- [ ] 第六步：截图抽检
+### 变量不存在 → 页面变黑
+
+脚本把色值替换为变量引用，但 .pen 中没有该变量 → Pencil 回退为黑色。
+
+**解法**：修复脚本必须先检查变量是否存在，不存在则先创建。
+
+### MCP set_variables 可能不写入
+
+返回 "Successfully set" 但变量实际没写入 .pen 文件。
+
+**解法**：直接用 Node.js 脚本修改 .pen JSON 的 `variables` 字段。
+
+### alpha 变体需要独立变量
+
+`#21DBB020` 和 `#21DBB010` 是不同的色值，不能都映射到同一个变量。
+
+**解法**：扫描时收集所有唯一色值，为每个创建独立变量。
