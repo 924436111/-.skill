@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mHn2j",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘"
+  },
+  {
+    "id": "RRYdD",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-同步中"
+  },
+  {
+    "id": "vgcDN",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-同步异常"
+  },
+  {
+    "id": "ED0Hn",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-设备不在身边"
+  },
+  {
+    "id": "mVO3l",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-超过七天弹窗"
+  },
+  {
+    "id": "Uq1VR",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页-空态"
+  },
+  {
+    "id": "Wr4oq",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页-无数据"
+  },
+  {
+    "id": "QjVh6",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-数据过期"
+  },
+  {
+    "id": "RZCfV",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-蓝牙未开启"
+  },
+  {
+    "id": "Ny14w",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-异常指标"
+  },
+  {
+    "id": "SYKxH",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-部分缺失"
+  },
+  {
+    "id": "l22jqB",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页仪表盘-设备胶囊下拉"
+  },
+  {
+    "id": "hTNH9",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "首页-未登录"
+  },
+  {
+    "id": "tv8Aj",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录"
+  },
+  {
+    "id": "W2Xy0V",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-手机号-1"
+  },
+  {
+    "id": "vyJqI",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-邮箱"
+  },
+  {
+    "id": "i4746",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-手机号-2"
+  },
+  {
+    "id": "EogJX",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-忘记密码-1"
+  },
+  {
+    "id": "XNJJq",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-忘记密码-2"
+  },
+  {
+    "id": "z0lwn",
+    "prop": "fill",
+    "val": "-bg-page",
+    "page": "登录-忘记密码-3"
+  }
+]
